@@ -4,6 +4,7 @@ import { ActivityIndicator, Alert, ScrollView, Text, View } from 'react-native';
 import { TaskForm } from '../../components/TaskForm';
 import '../../global.css';
 import { useTasks } from '../../lib/context/TaskContext';
+import { useTheme } from '../../lib/context/ThemeContext';
 import { taskService } from '../../lib/services/taskService';
 import { Task } from '../../lib/types/task';
 
@@ -11,6 +12,7 @@ export default function EditTask() {
   const router = useRouter();
   const { id } = useLocalSearchParams<{ id: string }>();
   const { updateTask } = useTasks();
+  const { theme } = useTheme();
   const [task, setTask] = useState<Task | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -51,23 +53,23 @@ export default function EditTask() {
 
   if (loading) {
     return (
-      <View className="flex-1 justify-center items-center bg-gray-50">
-        <ActivityIndicator size="large" color="#3B82F6" />
-        <Text className="text-gray-600 mt-4">Cargando tarea...</Text>
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: theme.colors.background }}>
+        <ActivityIndicator size="large" color={theme.colors.primary} />
+        <Text style={{ color: theme.colors.textSecondary, marginTop: 16 }}>Cargando tarea...</Text>
       </View>
     );
   }
 
   if (!task) {
     return (
-      <View className="flex-1 justify-center items-center bg-gray-50">
-        <Text className="text-gray-600">No se encontró la tarea</Text>
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: theme.colors.background }}>
+        <Text style={{ color: theme.colors.textSecondary }}>No se encontró la tarea</Text>
       </View>
     );
   }
 
   return (
-    <View className="flex-1 bg-gray-50">
+    <View style={{ flex: 1, backgroundColor: theme.colors.background }}>
       <ScrollView>
         <TaskForm
           initialValues={{

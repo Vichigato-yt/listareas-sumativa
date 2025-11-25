@@ -4,10 +4,12 @@ import { Alert, ScrollView, View } from 'react-native';
 import { TaskForm } from '../components/TaskForm';
 import '../global.css';
 import { useTasks } from '../lib/context/TaskContext';
+import { useTheme } from '../lib/context/ThemeContext';
 
 export default function AddTask() {
   const router = useRouter();
   const { addTask } = useTasks();
+  const { theme } = useTheme();
 
   const handleSubmit = async (task: { title: string; description: string }) => {
     try {
@@ -24,7 +26,7 @@ export default function AddTask() {
   };
 
   return (
-    <View className="flex-1 bg-gray-50">
+    <View style={{ flex: 1, backgroundColor: theme.colors.background }}>
       <ScrollView>
         <TaskForm onSubmit={handleSubmit} submitButtonText="Crear Tarea" />
       </ScrollView>
