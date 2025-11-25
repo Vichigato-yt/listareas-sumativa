@@ -1,0 +1,86 @@
+export type ThemeType = 'light' | 'dark' | 'halloween' | 'christmas';
+
+export interface Theme {
+  name: string;
+  colors: {
+    primary: string;
+    secondary: string;
+    background: string;
+    surface: string;
+    text: string;
+    textSecondary: string;
+    border: string;
+    error: string;
+    success: string;
+    accent: string;
+  };
+}
+
+export const themes: Record<ThemeType, Theme> = {
+  light: {
+    name: 'Claro',
+    colors: {
+      primary: '#3B82F6',
+      secondary: '#60A5FA',
+      background: '#F9FAFB',
+      surface: '#FFFFFF',
+      text: '#1F2937',
+      textSecondary: '#6B7280',
+      border: '#E5E7EB',
+      error: '#EF4444',
+      success: '#10B981',
+      accent: '#8B5CF6',
+    },
+  },
+  dark: {
+    name: 'Oscuro',
+    colors: {
+      primary: '#60A5FA',
+      secondary: '#3B82F6',
+      background: '#111827',
+      surface: '#1F2937',
+      text: '#F9FAFB',
+      textSecondary: '#D1D5DB',
+      border: '#374151',
+      error: '#F87171',
+      success: '#34D399',
+      accent: '#A78BFA',
+    },
+  },
+  halloween: {
+    name: 'Halloween',
+    colors: {
+      primary: '#F97316',
+      secondary: '#FB923C',
+      background: '#18181B',
+      surface: '#27272A',
+      text: '#FAFAFA',
+      textSecondary: '#D4D4D8',
+      border: '#3F3F46',
+      error: '#DC2626',
+      success: '#22C55E',
+      accent: '#A855F7',
+    },
+  },
+  christmas: {
+    name: 'Navidad',
+    colors: {
+      primary: '#DC2626',
+      secondary: '#EF4444',
+      background: '#F0FDF4',
+      surface: '#FFFFFF',
+      text: '#14532D',
+      textSecondary: '#166534',
+      border: '#BBF7D0',
+      error: '#DC2626',
+      success: '#16A34A',
+      accent: '#059669',
+    },
+  },
+};
+
+export interface ThemeContextType {
+  currentTheme: ThemeType;
+  theme: Theme;
+  setTheme: (theme: ThemeType) => void;
+}
