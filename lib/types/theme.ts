@@ -65,8 +65,8 @@ export const themes: Record<ThemeType, Theme> = {
   christmas: {
     name: 'Navidad',
     colors: {
-      primary: '#DC2626',
-      secondary: '#EF4444',
+      primary: '#16A34A',
+      secondary: '#22C55E',
       background: '#F0FDF4',
       surface: '#FFFFFF',
       text: '#14532D',
