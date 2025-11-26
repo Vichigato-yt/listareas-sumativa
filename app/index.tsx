@@ -58,14 +58,14 @@ export default function Index() {
         <IconButton
           onPress={() => router.push('/settings')}
           iconName="settings-outline"
-          iconSize={20}
-          iconColor={theme.colors.text}
+          iconSize={22}
+          iconColor={theme.colors.primary}
           text="Configuración"
           textColor={theme.colors.text}
           backgroundColor={theme.colors.surface}
-          className="px-4 py-2 rounded-lg border flex-row items-center"
-          style={{ borderColor: theme.colors.border }}
-          textClassName="font-normal"
+          className="px-5 py-3 rounded-xl border-2 flex-row items-center shadow-md"
+          style={{ borderColor: theme.colors.primary + '30', elevation: 4 }}
+          textClassName="font-semibold"
         />
       </View>
 
@@ -95,9 +95,11 @@ export default function Index() {
       <IconButton
         onPress={() => router.push('/add')}
         iconName="add"
-        iconSize={36}
+        iconSize={40}
+        iconColor="white"
         backgroundColor={theme.colors.primary}
-        className="absolute bottom-6 right-6 w-16 h-16 rounded-full items-center justify-center shadow-lg"
+        className="absolute bottom-8 right-8 w-20 h-20 rounded-full items-center justify-center"
+        style={{ elevation: 12, shadowColor: theme.colors.primary, shadowOffset: { width: 0, height: 8 }, shadowOpacity: 0.4, shadowRadius: 12 }}
       />
     </View>
   );
