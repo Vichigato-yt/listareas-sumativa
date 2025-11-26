@@ -55,21 +55,33 @@ export const TaskItem: React.FC<TaskItemProps> = ({ task, onDelete, onEdit, onTo
   };
 
   return (
-    <View style={{ backgroundColor: theme.colors.surface, borderColor: theme.colors.border }} className="rounded-lg p-4 mb-3 shadow-sm border-2">
-      <View className="flex-row justify-between items-start mb-2">
-        <View className="flex-1 mr-2">
+    <View 
+      style={{ 
+        backgroundColor: theme.colors.surface, 
+        borderLeftWidth: 4,
+        borderLeftColor: task.completed ? theme.colors.success : theme.colors.primary,
+        elevation: 3,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 8,
+      }} 
+      className="rounded-2xl p-5 mb-4"
+    >
+      <View className="flex-row justify-between items-start mb-3">
+        <View className="flex-1 mr-3">
           <Text
             style={{ 
               color: task.completed ? theme.colors.textSecondary : theme.colors.text,
               textDecorationLine: task.completed ? 'line-through' : 'none'
             }}
-            className="text-lg font-semibold"
+            className="text-xl font-bold"
           >
             {task.title}
           </Text>
           <Text
             style={{ color: task.completed ? theme.colors.textSecondary : theme.colors.textSecondary }}
-            className="text-sm mt-1"
+            className="text-base mt-2"
           >
             {task.description}
           </Text>
@@ -80,28 +92,33 @@ export const TaskItem: React.FC<TaskItemProps> = ({ task, onDelete, onEdit, onTo
             style={{
               backgroundColor: task.completed ? theme.colors.success : 'transparent',
               borderColor: task.completed ? theme.colors.success : theme.colors.border,
+              elevation: task.completed ? 2 : 0,
             }}
-            className="w-6 h-6 rounded-full border-2 items-center justify-center"
+            className="w-8 h-8 rounded-full border-2 items-center justify-center"
           >
-            {task.completed && <Ionicons name="checkmark" size={16} color="white" />}
+            {task.completed && <Ionicons name="checkmark" size={18} color="white" />}
           </TouchableOpacity>
         )}
       </View>
 
-      <View className="flex-row justify-end space-x-2 mt-2">
+      <View className="flex-row justify-end space-x-2 mt-3">
         <IconButton
           onPress={handleEdit}
           iconName="pencil"
+          iconSize={18}
           text="Editar"
           backgroundColor={theme.colors.primary}
-          className="px-4 py-2 rounded-lg mr-2 flex-row items-center"
+          className="px-5 py-3 rounded-xl mr-2 flex-row items-center"
+          style={{ elevation: 2 }}
         />
         <IconButton
           onPress={handleDelete}
           iconName="trash"
+          iconSize={18}
           text="Eliminar"
           backgroundColor={theme.colors.error}
-          className="px-4 py-2 rounded-lg flex-row items-center"
+          className="px-5 py-3 rounded-xl flex-row items-center"
+          style={{ elevation: 2 }}
         />
       </View>
 
