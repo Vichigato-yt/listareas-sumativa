@@ -1,5 +1,5 @@
 export interface Task {
-  id?: number;
+  id?: number | string;
   title: string;
   description: string;
   completed?: boolean;
@@ -12,6 +12,6 @@ export interface TaskContextType {
   error: string | null;
   fetchTasks: () => Promise<void>;
   addTask: (task: Omit<Task, 'id'>) => Promise<void>;
-  updateTask: (id: number, task: Partial<Task>) => Promise<void>;
-  deleteTask: (id: number) => Promise<void>;
+  updateTask: (id: number | string, task: Partial<Task>) => Promise<void>;
+  deleteTask: (id: number | string) => Promise<void>;
 }
