@@ -1,8 +1,7 @@
 import { Ionicons } from '@expo/vector-icons';
-import React from 'react';
+import React, { useState } from 'react';
 import {
     ActivityIndicator,
-    Alert,
     Modal,
     ScrollView,
     Text,
@@ -12,6 +11,7 @@ import {
 import '../global.css';
 import { useTheme } from '../lib/context/ThemeContext';
 import { useTaskForm } from '../lib/hooks/useTaskForm';
+import { CustomAlert } from './CustomAlert';
 import { FormInput } from './FormInput';
 
 interface EditTaskModalProps {
@@ -32,6 +32,7 @@ export const EditTaskModal: React.FC<EditTaskModalProps> = ({
   onUpdate,
 }) => {
   const { theme } = useTheme();
+  const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const {
     title,
     description,
@@ -54,7 +55,11 @@ export const EditTaskModal: React.FC<EditTaskModalProps> = ({
 
   const onSubmitHandler = async (data: { title: string; description: string }) => {
     await onUpdate(task.id, data);
-    Alert.alert('Éxito', 'Tarea actualizada correctamente');
+    setShowSuccessAlert(true);
+  };
+
+  const handleSuccessConfirm = () => {
+    setShowSuccessAlert(false);
     onClose();
   };
 
@@ -142,6 +147,17 @@ export const EditTaskModal: React.FC<EditTaskModalProps> = ({
           </ScrollView>
         </View>
       </View>
+
+      {/* Alerta de éxito */}
+      <CustomAlert
+        visible={showSuccessAlert}
+        title="¡Tarea actualizada!"
+        message="Los cambios se han guardado correctamente."
+        type="success"
+        confirmText="Aceptar"
+        showCancel={false}
+        onConfirm={handleSuccessConfirm}
+      />
     </Modal>
   );
 };

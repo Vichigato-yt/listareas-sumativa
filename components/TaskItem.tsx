@@ -1,9 +1,10 @@
 import { Ionicons } from '@expo/vector-icons';
 import React, { useRef, useState } from 'react';
-import { Alert, Animated, PanResponder, Text, TouchableOpacity, View } from 'react-native';
+import { Animated, PanResponder, Text, TouchableOpacity, View } from 'react-native';
 import '../global.css';
 import { useTheme } from '../lib/context/ThemeContext';
 import { Task } from '../lib/types/task';
+import { CustomAlert } from './CustomAlert';
 import { EditTaskModal } from './EditTaskModal';
 import { IconButton } from './IconButton';
 
@@ -17,6 +18,7 @@ interface TaskItemProps {
 export const TaskItem: React.FC<TaskItemProps> = ({ task, onDelete, onEdit, onToggleComplete }) => {
   const { theme } = useTheme();
   const [isEditModalVisible, setIsEditModalVisible] = useState(false);
+  const [showDeleteAlert, setShowDeleteAlert] = useState(false);
   const translateX = useRef(new Animated.Value(0)).current;
 
   const panResponder = useRef(
@@ -56,25 +58,14 @@ export const TaskItem: React.FC<TaskItemProps> = ({ task, onDelete, onEdit, onTo
   ).current;
 
   const handleDelete = () => {
-    Alert.alert(
-      'Eliminar tarea',
-      '¿Estás seguro de que deseas eliminar esta tarea?',
-      [
-        {
-          text: 'Cancelar',
-          style: 'cancel',
-        },
-        {
-          text: 'Eliminar',
-          style: 'destructive',
-          onPress: () => {
-            if (task.id) {
-              onDelete(task.id);
-            }
-          },
-        },
-      ]
-    );
+    setShowDeleteAlert(true);
+  };
+
+  const confirmDelete = () => {
+    if (task.id) {
+      onDelete(task.id);
+    }
+    setShowDeleteAlert(false);
   };
 
   const handleEdit = () => {
@@ -207,6 +198,18 @@ export const TaskItem: React.FC<TaskItemProps> = ({ task, onDelete, onEdit, onTo
           onUpdate={handleUpdateTask}
         />
       )}
+
+      {/* Alerta de confirmación de eliminación */}
+      <CustomAlert
+        visible={showDeleteAlert}
+        title="Eliminar tarea"
+        message="¿Estás seguro de que deseas eliminar esta tarea? Esta acción no se puede deshacer."
+        type="error"
+        confirmText="Eliminar"
+        cancelText="Cancelar"
+        onConfirm={confirmDelete}
+        onCancel={() => setShowDeleteAlert(false)}
+      />
     </View>
   );
 };
