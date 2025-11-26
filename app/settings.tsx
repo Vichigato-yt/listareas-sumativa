@@ -46,33 +46,38 @@ export default function Settings() {
                 key={option.key}
                 onPress={() => setTheme(option.key)}
                 style={{
-                  backgroundColor: theme.colors.surface,
+                  backgroundColor: isSelected ? theme.colors.primary + '15' : theme.colors.surface,
                   borderColor: isSelected ? theme.colors.primary : theme.colors.border,
-                  borderWidth: 2,
+                  borderWidth: isSelected ? 3 : 2,
+                  elevation: isSelected ? 6 : 2,
+                  shadowColor: isSelected ? theme.colors.primary : '#000',
+                  shadowOffset: { width: 0, height: isSelected ? 4 : 2 },
+                  shadowOpacity: isSelected ? 0.3 : 0.1,
+                  shadowRadius: isSelected ? 8 : 4,
                 }}
-                className="rounded-lg p-4 mb-3 flex-row items-center"
+                className="rounded-2xl p-5 mb-4 flex-row items-center"
               >
-                <Ionicons name={option.icon} size={32} color={theme.colors.text} style={{ marginRight: 16 }} />
+                <Ionicons name={option.icon} size={40} color={isSelected ? theme.colors.primary : theme.colors.text} style={{ marginRight: 20 }} />
                 <View className="flex-1">
                   <Text
                     style={{ color: theme.colors.text }}
-                    className="text-lg font-semibold"
+                    className="text-xl font-bold"
                   >
                     {themes[option.key].name}
                   </Text>
                   <Text
                     style={{ color: theme.colors.textSecondary }}
-                    className="text-sm mt-1"
+                    className="text-base mt-1"
                   >
                     {option.description}
                   </Text>
                 </View>
                 {isSelected && (
                   <View
-                    style={{ backgroundColor: theme.colors.primary }}
-                    className="w-6 h-6 rounded-full items-center justify-center"
+                    style={{ backgroundColor: theme.colors.primary, elevation: 4 }}
+                    className="w-10 h-10 rounded-full items-center justify-center"
                   >
-                    <Ionicons name="checkmark" size={16} color="white" />
+                    <Ionicons name="checkmark" size={24} color="white" />
                   </View>
                 )}
               </TouchableOpacity>
@@ -83,36 +88,38 @@ export default function Settings() {
         <View
           style={{
             backgroundColor: theme.colors.surface,
-            borderColor: theme.colors.border,
+            borderColor: theme.colors.primary + '30',
+            borderWidth: 2,
+            elevation: 3,
           }}
-          className="rounded-lg p-4 border"
+          className="rounded-2xl p-5"
         >
           <Text
             style={{ color: theme.colors.text }}
-            className="text-base font-semibold mb-2"
+            className="text-lg font-bold mb-4"
           >
-            Vista Previa de Colores
+            🎨 Vista Previa de Colores
           </Text>
-          <View className="flex-row flex-wrap gap-2">
+          <View className="flex-row flex-wrap gap-3">
             <View
-              style={{ backgroundColor: theme.colors.primary }}
-              className="w-12 h-12 rounded-lg"
+              style={{ backgroundColor: theme.colors.primary, elevation: 3 }}
+              className="w-16 h-16 rounded-2xl"
             />
             <View
-              style={{ backgroundColor: theme.colors.secondary }}
-              className="w-12 h-12 rounded-lg"
+              style={{ backgroundColor: theme.colors.secondary, elevation: 3 }}
+              className="w-16 h-16 rounded-2xl"
             />
             <View
-              style={{ backgroundColor: theme.colors.accent }}
-              className="w-12 h-12 rounded-lg"
+              style={{ backgroundColor: theme.colors.accent, elevation: 3 }}
+              className="w-16 h-16 rounded-2xl"
             />
             <View
-              style={{ backgroundColor: theme.colors.success }}
-              className="w-12 h-12 rounded-lg"
+              style={{ backgroundColor: theme.colors.success, elevation: 3 }}
+              className="w-16 h-16 rounded-2xl"
             />
             <View
-              style={{ backgroundColor: theme.colors.error }}
-              className="w-12 h-12 rounded-lg"
+              style={{ backgroundColor: theme.colors.error, elevation: 3 }}
+              className="w-16 h-16 rounded-2xl"
             />
           </View>
         </View>

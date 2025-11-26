@@ -60,15 +60,20 @@ export const TaskForm: React.FC<TaskFormProps> = ({
       <TouchableOpacity
         style={{
           backgroundColor: isSubmitting ? theme.colors.primary + '80' : theme.colors.primary,
+          elevation: 4,
+          shadowColor: theme.colors.primary,
+          shadowOffset: { width: 0, height: 4 },
+          shadowOpacity: 0.3,
+          shadowRadius: 8,
         }}
-        className="rounded-lg p-4 items-center mt-2"
+        className="rounded-2xl p-5 items-center mt-4"
         onPress={() => handleSubmit(onSubmit)}
         disabled={isSubmitting}
       >
         {isSubmitting ? (
-          <ActivityIndicator color="#FFFFFF" />
+          <ActivityIndicator color="#FFFFFF" size="large" />
         ) : (
-          <Text className="text-white text-lg font-semibold">{submitButtonText}</Text>
+          <Text className="text-white text-xl font-bold">{submitButtonText}</Text>
         )}
       </TouchableOpacity>
     </View>
