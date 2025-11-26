@@ -1,20 +1,22 @@
 import { Ionicons } from '@expo/vector-icons';
-import { useRouter } from 'expo-router';
-import React from 'react';
+import React, { useState } from 'react';
 import { Alert, Text, TouchableOpacity, View } from 'react-native';
 import '../global.css';
 import { useTheme } from '../lib/context/ThemeContext';
 import { Task } from '../lib/types/task';
+import { EditTaskModal } from './EditTaskModal';
+import { IconButton } from './IconButton';
 
 interface TaskItemProps {
   task: Task;
-  onDelete: (id: number) => void;
-  onToggleComplete?: (id: number, completed: boolean) => void;
+  onDelete: (id: number | string) => void;
+  onEdit: (id: number | string, data: { title: string; description: string }) => Promise<void>;
+  onToggleComplete?: (id: number | string, completed: boolean) => void;
 }
 
-export const TaskItem: React.FC<TaskItemProps> = ({ task, onDelete, onToggleComplete }) => {
-  const router = useRouter();
+export const TaskItem: React.FC<TaskItemProps> = ({ task, onDelete, onEdit, onToggleComplete }) => {
   const { theme } = useTheme();
+  const [isEditModalVisible, setIsEditModalVisible] = useState(false);
 
   const handleDelete = () => {
     Alert.alert(
@@ -39,12 +41,11 @@ export const TaskItem: React.FC<TaskItemProps> = ({ task, onDelete, onToggleComp
   };
 
   const handleEdit = () => {
-    if (task.id) {
-      router.push({
-        pathname: '/edit/[id]',
-        params: { id: task.id.toString() },
-      });
-    }
+    setIsEditModalVisible(true);
+  };
+
+  const handleUpdateTask = async (id: number | string, data: { title: string; description: string }) => {
+    await onEdit(id, data);
   };
 
   const handleToggleComplete = () => {
@@ -88,23 +89,35 @@ export const TaskItem: React.FC<TaskItemProps> = ({ task, onDelete, onToggleComp
       </View>
 
       <View className="flex-row justify-end space-x-2 mt-2">
-        <TouchableOpacity
+        <IconButton
           onPress={handleEdit}
-          style={{ backgroundColor: theme.colors.primary }}
+          iconName="pencil"
+          text="Editar"
+          backgroundColor={theme.colors.primary}
           className="px-4 py-2 rounded-lg mr-2 flex-row items-center"
-        >
-          <Ionicons name="pencil" size={16} color="white" style={{ marginRight: 6 }} />
-          <Text className="text-white font-semibold">Editar</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
+        />
+        <IconButton
           onPress={handleDelete}
-          style={{ backgroundColor: theme.colors.error }}
+          iconName="trash"
+          text="Eliminar"
+          backgroundColor={theme.colors.error}
           className="px-4 py-2 rounded-lg flex-row items-center"
-        >
-          <Ionicons name="trash" size={16} color="white" style={{ marginRight: 6 }} />
-          <Text className="text-white font-semibold">Eliminar</Text>
-        </TouchableOpacity>
+        />
       </View>
+
+      {/* Modal de edición */}
+      {task.id && (
+        <EditTaskModal
+          visible={isEditModalVisible}
+          task={{
+            id: task.id,
+            title: task.title,
+            description: task.description,
+          }}
+          onClose={() => setIsEditModalVisible(false)}
+          onUpdate={handleUpdateTask}
+        />
+      )}
     </View>
   );
 };
