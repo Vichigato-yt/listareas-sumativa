@@ -1,9 +1,33 @@
 import axios from 'axios';
 import { Task } from '../types/task';
 
-// URL pública del servidor json-server
-// El servidor está corriendo en el puerto público 3000
-const API_URL = 'https://sturdy-space-garbanzo-pj9gwr7x7vpxh944q-3000.app.github.dev/tasks';
+// Función para obtener la URL correcta del API
+const getApiUrl = (): string => {
+  // Para web (Expo Web)
+  if (typeof window !== 'undefined') {
+    const hostname = window.location.hostname;
+    
+    // Si estamos en GitHub Codespaces
+    if (hostname.includes('.github.dev') || hostname.includes('.githubpreview.dev')) {
+      // Reemplazar el puerto del hostname con el puerto 3000
+      const parts = hostname.split('-');
+      if (parts.length > 1) {
+        parts[parts.length - 1] = '3000.app.github.dev';
+        return `https://${parts.join('-')}/tasks`;
+      }
+    }
+    
+    // Desarrollo local
+    return 'https://sturdy-space-garbanzo-pj9gwr7x7vpxh944q-3000.app.github.dev/tasks';
+  }
+  
+  // Para React Native (mobile)
+  return 'https://sturdy-space-garbanzo-pj9gwr7x7vpxh944q-3000.app.github.dev/tasks';
+};
+
+const API_URL = getApiUrl();
+
+console.log('API URL configurada:', API_URL);
 
 // Configurar axios
 const axiosInstance = axios.create({
@@ -11,6 +35,7 @@ const axiosInstance = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
+  timeout: 10000,
 });
 
 export const taskService = {
@@ -26,8 +51,9 @@ export const taskService = {
   },
 
   // Obtener una tarea por ID
-  async getTaskById(id: number): Promise<Task> {
+  async getTaskById(id: number | string): Promise<Task> {
     try {
+      console.log('Obteniendo tarea con ID:', id);
       const response = await axiosInstance.get<Task>(`/${id}`);
       return response.data;
     } catch (error) {
@@ -54,19 +80,25 @@ export const taskService = {
   },
 
   // Actualizar una tarea existente
-  async updateTask(id: number, task: Partial<Task>): Promise<Task> {
+  async updateTask(id: number | string, task: Partial<Task>): Promise<Task> {
     try {
+      console.log('Actualizando tarea con ID:', id, 'Datos:', task);
       const response = await axiosInstance.patch<Task>(`/${id}`, task);
+      console.log('Respuesta del servidor:', response.data);
       return response.data;
     } catch (error) {
       console.error('Error al actualizar tarea:', error);
+      if (axios.isAxiosError(error)) {
+        console.error('Detalles del error:', error.response?.status, error.response?.data);
+      }
       throw new Error('No se pudo actualizar la tarea');
     }
   },
 
   // Eliminar una tarea
-  async deleteTask(id: number): Promise<void> {
+  async deleteTask(id: number | string): Promise<void> {
     try {
+      console.log('Eliminando tarea con ID:', id);
       await axiosInstance.delete(`/${id}`);
     } catch (error) {
       console.error('Error al eliminar tarea:', error);
