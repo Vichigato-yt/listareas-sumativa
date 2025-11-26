@@ -1,3 +1,11 @@
 {
-  "tasks": []
+  "tasks": [
+    {
+      "id": "be98",
+      "title": "Mi poll",
+      "description": "Xe",
+      "completed": false,
+      "createdAt": "2025-11-26T20:08:54.606Z"
+    }
+  ]
 }
