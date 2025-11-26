@@ -18,23 +18,23 @@ export default function Settings() {
 
   return (
     <View style={{ flex: 1, backgroundColor: theme.colors.background }}>
-      <ScrollView className="flex-1 p-4">
-        <View className="mb-6">
+      <ScrollView className="flex-1 p-3">
+        <View className="mb-3">
           <Text
             style={{ color: theme.colors.text }}
-            className="text-2xl font-bold mb-2"
+            className="text-xl font-bold mb-1"
           >
             Configuración
           </Text>
-          <Text style={{ color: theme.colors.textSecondary }} className="text-base">
+          <Text style={{ color: theme.colors.textSecondary }} className="text-sm">
             Personaliza la apariencia de tu aplicación
           </Text>
         </View>
 
-        <View className="mb-4">
+        <View className="mb-2">
           <Text
             style={{ color: theme.colors.text }}
-            className="text-lg font-semibold mb-3"
+            className="text-base font-semibold mb-2"
           >
             Seleccionar Tema
           </Text>
@@ -55,19 +55,19 @@ export default function Settings() {
                   shadowOpacity: isSelected ? 0.3 : 0.1,
                   shadowRadius: isSelected ? 8 : 4,
                 }}
-                className="rounded-2xl p-5 mb-4 flex-row items-center"
+                className="rounded-xl p-3 mb-2 flex-row items-center"
               >
-                <Ionicons name={option.icon} size={40} color={isSelected ? theme.colors.primary : theme.colors.text} style={{ marginRight: 20 }} />
+                <Ionicons name={option.icon} size={28} color={isSelected ? theme.colors.primary : theme.colors.text} style={{ marginRight: 12 }} />
                 <View className="flex-1">
                   <Text
                     style={{ color: theme.colors.text }}
-                    className="text-xl font-bold"
+                    className="text-base font-bold"
                   >
                     {themes[option.key].name}
                   </Text>
                   <Text
                     style={{ color: theme.colors.textSecondary }}
-                    className="text-base mt-1"
+                    className="text-xs mt-0.5"
                   >
                     {option.description}
                   </Text>
@@ -75,9 +75,9 @@ export default function Settings() {
                 {isSelected && (
                   <View
                     style={{ backgroundColor: theme.colors.primary, elevation: 4 }}
-                    className="w-10 h-10 rounded-full items-center justify-center"
+                    className="w-7 h-7 rounded-full items-center justify-center"
                   >
-                    <Ionicons name="checkmark" size={24} color="white" />
+                    <Ionicons name="checkmark" size={18} color="white" />
                   </View>
                 )}
               </TouchableOpacity>
@@ -92,34 +92,37 @@ export default function Settings() {
             borderWidth: 2,
             elevation: 3,
           }}
-          className="rounded-2xl p-5"
+          className="rounded-xl p-3"
         >
-          <Text
-            style={{ color: theme.colors.text }}
-            className="text-lg font-bold mb-4"
-          >
-            🎨 Vista Previa de Colores
-          </Text>
-          <View className="flex-row flex-wrap gap-3">
+          <View className="flex-row items-center mb-2">
+            <Ionicons name="color-palette" size={20} color={theme.colors.text} style={{ marginRight: 8 }} />
+            <Text
+              style={{ color: theme.colors.text }}
+              className="text-base font-bold"
+            >
+              Vista Previa de Colores
+            </Text>
+          </View>
+          <View className="flex-row flex-wrap gap-2">
             <View
-              style={{ backgroundColor: theme.colors.primary, elevation: 3 }}
-              className="w-16 h-16 rounded-2xl"
+              style={{ backgroundColor: theme.colors.primary, elevation: 2 }}
+              className="w-12 h-12 rounded-xl"
             />
             <View
-              style={{ backgroundColor: theme.colors.secondary, elevation: 3 }}
-              className="w-16 h-16 rounded-2xl"
+              style={{ backgroundColor: theme.colors.secondary, elevation: 2 }}
+              className="w-12 h-12 rounded-xl"
             />
             <View
-              style={{ backgroundColor: theme.colors.accent, elevation: 3 }}
-              className="w-16 h-16 rounded-2xl"
+              style={{ backgroundColor: theme.colors.accent, elevation: 2 }}
+              className="w-12 h-12 rounded-xl"
             />
             <View
-              style={{ backgroundColor: theme.colors.success, elevation: 3 }}
-              className="w-16 h-16 rounded-2xl"
+              style={{ backgroundColor: theme.colors.success, elevation: 2 }}
+              className="w-12 h-12 rounded-xl"
             />
             <View
-              style={{ backgroundColor: theme.colors.error, elevation: 3 }}
-              className="w-16 h-16 rounded-2xl"
+              style={{ backgroundColor: theme.colors.error, elevation: 2 }}
+              className="w-12 h-12 rounded-xl"
             />
           </View>
         </View>
