@@ -1,4 +1,4 @@
-export type ThemeType = 'light' | 'dark' | 'halloween' | 'christmas';
+export type ThemeType = 'light' | 'dark' | 'halloween' | 'christmas' | 'tf2';
 
 export interface Theme {
   name: string;
@@ -75,6 +75,21 @@ export const themes: Record<ThemeType, Theme> = {
       error: '#DC2626',
       success: '#16A34A',
       accent: '#059669',
+    },
+  },
+  tf2: {
+    name: 'Team Fortress 2',
+    colors: {
+      primary: '#CF6A32',
+      secondary: '#B85835',
+      background: '#3C3226',
+      surface: '#524538',
+      text: '#EAD4AA',
+      textSecondary: '#BFA377',
+      border: '#8B6F47',
+      error: '#A52019',
+      success: '#729E42',
+      accent: '#E3B448',
     },
   },
 };

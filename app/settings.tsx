@@ -13,6 +13,7 @@ export default function Settings() {
     { key: 'dark', icon: 'moon', description: 'Tema oscuro para la noche' },
     { key: 'halloween', icon: 'skull', description: 'Tema terrorífico de Halloween' },
     { key: 'christmas', icon: 'gift', description: 'Tema festivo de Navidad' },
+    { key: 'tf2', icon: 'game-controller', description: 'Estilo clásico de Team Fortress 2' },
   ];
 
   return (
