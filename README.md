@@ -1,127 +1,201 @@
-# 📱 Lista de Tareas - App Móvil con React Native + Expo
+# 📝 Lista de Tareas - App Sumativa
 
-Aplicación móvil para gestión de tareas con React Native, Expo Router, TypeScript, NativeWind y json-server.
+Una aplicación móvil moderna de gestión de tareas desarrollada con React Native, Expo y TypeScript. Incluye temas personalizables, validación de formularios con Zod, gestos táctiles intuitivos y alertas personalizadas.
 
-## 🚀 Inicio Rápido
+## ✨ Características Principales
 
-### 1️⃣ Iniciar el servidor API (json-server)
+### 🎨 **Sistema de Temas**
+- 5 temas personalizables: Claro, Oscuro, Halloween, Navidad, Team Fortress 2
+- Colores dinámicos que se aplican a toda la aplicación
+- Persistencia del tema seleccionado con AsyncStorage
 
-**IMPORTANTE:** Abre una terminal y ejecuta:
+### 📋 **Gestión de Tareas**
+- ✅ Crear tareas con título y descripción opcional
+- ✏️ Editar tareas mediante modal inline
+- 🗑️ Eliminar tareas con confirmación
+- ☑️ Marcar como completadas/pendientes
+- 🔄 Actualización en tiempo real
 
+### 🎯 **Gestos Táctiles**
+- **Deslizar derecha (→)** → Editar
+- **Deslizar izquierda (←)** → Eliminar
+- Feedback visual con colores e íconos
+- Animaciones suaves
+
+### 🔔 **Alertas Personalizadas**
+- Alertas adaptadas al tema activo
+- 4 tipos: Éxito, Error, Advertencia, Info
+- Diseño moderno con íconos y animaciones
+
+### ✅ **Validación con Zod v4**
+- Validación en tiempo real
+- Títulos obligatorios (alfanuméricos)
+- Descripciones opcionales
+- Mensajes de error con íconos
+
+## 🛠️ Tecnologías
+
+- **React Native 0.81.5** + **Expo ~54.0.25**
+- **TypeScript 5.9.2**
+- **Expo Router v6**
+- **NativeWind v4** (Tailwind CSS)
+- **Zod v4.1.13**
+- **Axios v1.13.2**
+- **json-server v1.0.0-beta.3**
+- **React Context API**
+
+## 📦 Instalación
+
+### **Prerrequisitos**
+- Node.js v18+
+- npm o yarn
+- Expo Go app (móvil)
+
+### **Pasos**
+
+1. **Clonar repositorio**
+```bash
+git clone https://github.com/Vichigato-yt/listareas-sumativa.git
+cd listareas-sumativa
+```
+
+2. **Instalar dependencias**
+```bash
+npm install
+```
+
+3. **Iniciar servidor JSON (IMPORTANTE)**
 ```bash
 npm run api
 ```
+**Déjalo corriendo** en `http://localhost:3000`
 
-Esto iniciará json-server en `http://localhost:3000`. **Déjalo corriendo**.
-
-### 2️⃣ Iniciar la aplicación Expo
-
-En **otra terminal nueva**, ejecuta:
-
+4. **Iniciar Expo (otra terminal)**
 ```bash
 npm start
 ```
 
-Luego selecciona:
-- Presiona `w` para abrir en navegador web
-- Presiona `a` para Android
-- Presiona `i` para iOS
+5. **Abrir app**
+- Presiona `w` → Web
+- Presiona `a` → Android
+- Presiona `i` → iOS
+- Escanea QR con Expo Go
 
-## ⚠️ Solución al Error "Network Error"
-
-Si ves el error `AxiosError: Network Error`, significa que el servidor json-server **NO está corriendo**.
-
-**Solución:**
-1. Abre una terminal
-2. Ejecuta: `npm run api`
-3. Verifica que veas: `JSON Server started on PORT: 3000`
-4. Recarga la aplicación (presiona `r` en la terminal de Expo)
-
-## 🎯 Características Implementadas
-
-✅ CRUD completo de tareas (Crear, Leer, Actualizar, Eliminar)
-✅ Validaciones de formulario (solo alfanuméricos)
-✅ API REST con json-server
-✅ Context API para estado global
-✅ Expo Router con rutas dinámicas
-✅ TypeScript con tipado completo
-✅ Estilos con NativeWind (Tailwind CSS)
-
-## 📁 Estructura del Proyecto
-
-```
-listareas-sumativa/
-├── app/                    # Pantallas (Expo Router)
-│   ├── _layout.tsx        # Layout raíz con TaskProvider
-│   ├── index.tsx          # Lista de tareas
-│   ├── add.tsx            # Nueva tarea
-│   └── edit/[id].tsx      # Editar tarea
-├── components/            # Componentes reutilizables
-│   ├── TaskForm.tsx       # Formulario con validaciones
-│   └── TaskItem.tsx       # Tarjeta de tarea
-├── lib/                   # Lógica y servicios
-│   ├── context/           # Context API
-│   ├── services/          # API REST
-│   ├── types/             # Tipos TypeScript
-│   └── utils/             # Validaciones
-└── db.json                # Base de datos json-server
-```
-
-## 🛠️ Scripts Disponibles
+## 🚀 Scripts Disponibles
 
 ```bash
 npm start          # Iniciar Expo
-npm run api        # Iniciar json-server (API)
-npm run web        # Iniciar en navegador
-npm run android    # Iniciar en Android
-npm run ios        # Iniciar en iOS
+npm run api        # Iniciar json-server (REQUERIDO)
+npm run web        # Web
+npm run android    # Android
+npm run ios        # iOS
+npm run lint       # ESLint
 ```
 
-## 🔧 Configuración de URL de API
+## 🗂️ Estructura del Proyecto
 
-La app detecta automáticamente el entorno:
+```
+listareas-sumativa/
+├── app/                    # Rutas (Expo Router)
+│   ├── _layout.tsx        # Layout con providers
+│   ├── index.tsx          # Lista de tareas
+│   ├── add.tsx            # Crear tarea
+│   ├── settings.tsx       # Configuración de temas
+│   └── edit/[id].tsx      # Editar (deprecated)
+├── components/            # Componentes reutilizables
+│   ├── CustomAlert.tsx    # Alertas personalizadas
+│   ├── EditTaskModal.tsx  # Modal de edición
+│   ├── EmptyState.tsx     # Estado vacío
+│   ├── ErrorBanner.tsx    # Banner de errores
+│   ├── FormInput.tsx      # Input con validación
+│   ├── IconButton.tsx     # Botón con ícono
+│   ├── LoadingState.tsx   # Indicador de carga
+│   ├── TaskForm.tsx       # Formulario de tareas
+│   └── TaskItem.tsx       # Tarjeta con gestos
+├── lib/
+│   ├── context/           # TaskContext, ThemeContext
+│   ├── hooks/             # useTaskForm
+│   ├── services/          # taskService (Axios)
+│   ├── types/             # task.ts, theme.ts
+│   └── utils/             # validation.ts, zodSchemas.ts
+└── db.json                # Base de datos
+```
 
-- **Web**: `http://localhost:3000`
-- **Android Emulator**: `http://10.0.2.2:3000`
-- **iOS/Dispositivo físico**: Necesitas tu IP local
+## 🐛 Solución de Problemas
 
-Si usas un dispositivo físico, edita `lib/services/taskService.ts` y reemplaza con tu IP:
+### **Error: Network Error / Cannot connect**
+1. Verifica que json-server esté corriendo: `npm run api`
+2. Debe aparecer: `JSON Server started on PORT: 3000`
+3. Recarga la app: presiona `r` en terminal Expo
 
+### **Dispositivo físico**
+Edita `lib/services/taskService.ts` con tu IP local:
 ```typescript
-return 'http://TU_IP_LOCAL:3000/tasks'; // ej: http://192.168.1.100:3000/tasks
+return 'http://192.168.1.X:3000/tasks';
 ```
 
-## 📝 Uso de la Aplicación
+### **Module not found**
+```bash
+rm -rf node_modules package-lock.json
+npm install
+```
 
-1. **Ver tareas**: La pantalla principal muestra todas las tareas
-2. **Agregar**: Presiona el botón "+" flotante
-3. **Editar**: Presiona "Editar" en cualquier tarea
-4. **Eliminar**: Presiona "Eliminar" y confirma
-5. **Completar**: Presiona el círculo para marcar como completada
+## 📝 Uso
 
-## ✅ Validaciones del Formulario
+1. **Ver tareas**: Pantalla principal
+2. **Agregar**: Botón "+" flotante
+3. **Editar**: Desliza derecha → o botón "Editar"
+4. **Eliminar**: Desliza izquierda ← o botón "Eliminar"
+5. **Completar**: Presiona el círculo
+6. **Cambiar tema**: Configuración → Selecciona tema
 
-- ✅ Campos no pueden estar vacíos
-- ✅ Solo caracteres alfanuméricos: letras, números, espacios
-- ✅ Se permiten acentos y ñ
-- ❌ No se permiten caracteres especiales: @#$%&*
+## 📝 Changelog
+
+### **v1.0.0** - 2025-11-26
+
+#### Añadido
+- ✨ Sistema de 5 temas personalizables
+- ✨ Validación Zod v4
+- ✨ Gestos de deslizamiento
+- ✨ Alertas personalizadas
+- ✨ Modal de edición inline
+- ✨ Componentes reutilizables
+- ✨ Persistencia con AsyncStorage
+
+#### Mejorado
+- 💄 Diseño con bordes redondeados y sombras
+- 💄 Espaciado y tipografía
+- 🎨 Colores dinámicos en header
+- 🚀 Animaciones suaves
+
+#### Corregido
+- 🐛 IDs mixtos (string|number)
+- 🐛 Descripción opcional
+- 🐛 URL dinámica Codespaces
 
 ## 🎓 Requisitos Cumplidos
 
-- [x] Formularios con validaciones
-- [x] Conexión a API REST (json-server)
-- [x] Context API para estado global
-- [x] Expo Router con rutas dinámicas
-- [x] TypeScript con tipado completo
-- [x] Estilos con NativeWind (Tailwind CSS)
-- [x] Arquitectura limpia (app/, lib/, components/)
+- [x] Formularios con validaciones (Zod)
+- [x] API REST (json-server)
+- [x] Context API
+- [x] Expo Router
+- [x] TypeScript
+- [x] NativeWind (Tailwind)
+- [x] Arquitectura limpia
+- [x] Sistema de temas
+- [x] Gestos táctiles
+- [x] Custom hooks
+- [x] Alertas personalizadas
 
-## 📄 Tecnologías
+## 👨‍💻 Autor
 
-- React Native + Expo
-- TypeScript
-- Expo Router (file system routing)
-- Context API
-- NativeWind (Tailwind CSS)
-- json-server
-- Axios
+**Vichigato-yt**
+- GitHub: [@Vichigato-yt](https://github.com/Vichigato-yt)
+
+## 📄 Licencia
+
+Proyecto privado - Evaluación sumativa
+
+---
+
+**¿Bug?** Abre un issue | **¿Sugerencias?** ¡Bienvenidas!
