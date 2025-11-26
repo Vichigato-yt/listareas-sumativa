@@ -45,13 +45,13 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({ children }) => {
     }
   };
 
-  const updateTask = async (id: number, task: Partial<Task>) => {
+  const updateTask = async (id: number | string, task: Partial<Task>) => {
     try {
       setLoading(true);
       setError(null);
       const updatedTask = await taskService.updateTask(id, task);
       setTasks((prevTasks) =>
-        prevTasks.map((t) => (t.id === id ? updatedTask : t))
+        prevTasks.map((t) => (t.id?.toString() === id.toString() ? updatedTask : t))
       );
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Error al actualizar tarea');
@@ -61,12 +61,12 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({ children }) => {
     }
   };
 
-  const deleteTask = async (id: number) => {
+  const deleteTask = async (id: number | string) => {
     try {
       setLoading(true);
       setError(null);
       await taskService.deleteTask(id);
-      setTasks((prevTasks) => prevTasks.filter((t) => t.id !== id));
+      setTasks((prevTasks) => prevTasks.filter((t) => t.id?.toString() !== id.toString()));
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Error al eliminar tarea');
       throw err;
