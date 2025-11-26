@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { taskDescriptionSchema, taskTitleSchema } from './zodSchemas';
+import { taskTitleSchema } from './zodSchemas';
 
 /**
  * Valida que el texto solo contenga caracteres alfanuméricos y espacios
@@ -35,8 +35,16 @@ export interface ValidationResult {
  * @returns Resultado de la validación
  */
 export const validateField = (value: string, fieldName: string): ValidationResult => {
+  // La descripción es opcional, siempre es válida
+  if (fieldName === 'descripción') {
+    return {
+      isValid: true,
+      error: '',
+    };
+  }
+
   try {
-    const schema = fieldName === 'título' ? taskTitleSchema : taskDescriptionSchema;
+    const schema = taskTitleSchema;
     schema.parse(value);
     return {
       isValid: true,

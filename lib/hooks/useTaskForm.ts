@@ -42,14 +42,12 @@ export const useTaskForm = ({
       result.error.issues.forEach((err) => {
         if (err.path[0] === 'title') {
           setTitleError(err.message);
-        } else if (err.path[0] === 'description') {
-          setDescriptionError(err.message);
         }
       });
       return null;
     }
 
-    return result.data;
+    return { title: result.data.title, description: description };
   };
 
   const handleSubmit = async (

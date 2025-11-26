@@ -35,7 +35,7 @@ export const taskDescriptionSchema = z
  */
 export const taskSchema = z.object({
   title: taskTitleSchema,
-  description: taskDescriptionSchema,
+  description: z.string().optional(),
 });
 
 /**
